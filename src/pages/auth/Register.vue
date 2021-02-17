@@ -2,7 +2,7 @@
   <q-page class="bg-light-blue window-height window-width row justify-center items-center">
     <div class="column q-pa-lg">
       <div class="row">
-        <h5 class="text-h5 text-white q-my-md">GoClin</h5>
+        <h5 class="text-h5 text-white q-my-md">Faça seu registro</h5>
       </div>
       <div class="row">
         <q-card square bordered class="q-pa-xl shadow-1">
@@ -23,7 +23,7 @@
                   <q-icon name="phone" />
                 </template>
               </q-input>
-              <q-select square clearable v-model="scope" :option="$options" label="Função na clínica">
+              <q-select square clearable v-model="model" :options="options" label="Função na clínica" emit-value map-options>
                 <template v-slot:prepend>
                   <q-icon name="work" />
                 </template>
@@ -36,7 +36,7 @@
             </q-form>
           </q-card-section>
           <q-card-actions class="q-px-md">
-            <q-btn @click="onRegister" no-caps unelevated color="light-blue-7" size="lg" class="full-width" label="Criar Conta" :loading="loading">
+            <q-btn @click="onRegister()" no-caps unelevated color="light-blue-7" size="lg" class="full-width" label="Criar Conta" :loading="loading">
               <span slot="loading">
                 <q-spinner-hourglass class="on-left" />Carregando...
               </span>
@@ -53,23 +53,46 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
+import users from '../../store/modules/users'
 
 @Component
 export default class Register extends Vue {
   name = '';
   email = '';
   cellPhone = '';
-  scope = '';
+  model =  '';
+  options = [
+    { 
+      label: 'Atendente',
+      value: 'attendant'
+    },
+    {
+      label: 'Profissional de saúde',
+      value: 'professional'
+    },
+    {
+      label: 'Administrador',
+      value:'administrator'
+    }
+  ];
   password = '';
-  loginError = '';
   loading = false;
 
   onRegister() {
     this.loading = true
-    
-    setTimeout(() => {
-      this.$router.push('home')
-    }, 2000)
+    users.register({
+      name: this.name,
+      email: this.email,
+      cellPhone: this.cellPhone,
+      scope: this.model,
+      password: this.password,
+    })
+    .then(() => this.$router.push('home'))
+    .catch((err) => {
+      console.log(err)
+      this.$q.notify("Please review fields again.")
+    })
+    this.loading = false
   }
 }
 </script>

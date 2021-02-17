@@ -7,9 +7,7 @@
         </q-toolbar-title>
 
         <div>
-          <q-btn label="Login" />
-          <q-btn label="Registrar" />
-          <q-btn color="red" label="Sair" />
+          <q-btn no-caps unelevated color="red-7" label="Sair" to="/" />
         </div>
       </q-toolbar>
     </q-header>
@@ -21,21 +19,10 @@
 </template>
 
 <script lang="ts">
-import EssentialLink from 'components/EssentialLink.vue'
+import { Vue, Component } from 'vue-property-decorator'
 
-const linksData = [
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  }
-]
+@Component
+export default class MainLayout extends Vue {
+}
 
-import { defineComponent, ref } from '@vue/composition-api'
-
-export default defineComponent({
-  name: 'MainLayout',
-  components: { EssentialLink }
-})
 </script>

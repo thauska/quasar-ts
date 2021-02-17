@@ -2,7 +2,7 @@
   <q-page class="bg-light-blue window-height window-width row justify-center items-center">
     <div class="column q-pa-lg">
       <div class="row">
-        <h5 class="text-h5 text-white q-my-md">GoClin</h5>
+        <h5 class="text-h5 text-white q-my-md">Acesse sua conta</h5>
       </div>
       <div class="row">
         <q-card square bordered class="q-pa-xl shadow-1">
@@ -21,7 +21,7 @@
             </q-form>
           </q-card-section>
           <q-card-actions class="q-px-md">
-            <q-btn @click="onSubmit" no-caps unelevated color="light-blue-7" size="lg" class="full-width" label="Login" :loading="loading">
+            <q-btn @click="onSubmit()" no-caps unelevated color="light-blue-7" size="lg" class="full-width" label="Login" :loading="loading">
               <span slot="loading">
                 <q-spinner-hourglass class="on-left" />Carregando...
               </span>
@@ -39,20 +39,26 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
+import users from '../../store/modules/users'
 
 @Component
 export default class Login extends Vue {
   loading = false;
   email = '';
   password = '';
-  loginError = '';
 
   onSubmit () {
     this.loading = true
-    
-    setTimeout(() => {
-      this.$router.push('home')
-    }, 2000)
+    users.login({
+      email: this.email,
+      password: this.password
+    })
+    .then(() => this.$router.push('home'))
+    .catch((err) => {
+      console.log('***: ', err)
+      this.$q.notify("Please review fields again.")
+    })
+    this.loading = false
   }
 }
 </script>
