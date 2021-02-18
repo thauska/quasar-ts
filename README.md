@@ -1,6 +1,13 @@
-# Quasar App (goclin-test)
+# Exemplo de tela de Login e Cadastro
 
-A Quasar Framework app
+A Quasar Framework app with:
+
+- TypeScript
+- Axios
+- Vue-Class-Components
+- Vuex-Module-Decorators
+- Vue-Property-Decorator
+- ESLint 
 
 ## Install the dependencies
 ```bash
