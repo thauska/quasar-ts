@@ -24,7 +24,7 @@ jobs:
 
       # Install dependencies
       - name: Install dependencies
-        run: yarn install
+        run: npm install
       
       # Build application
       - name: Build with quasar
