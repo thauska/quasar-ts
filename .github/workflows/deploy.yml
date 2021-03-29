@@ -14,14 +14,14 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: '14.x'
+          node-version: '10.x'
       
       # Install dependencies
       - name: Install dependencies
         run: yarn install
       
       # Build application
-      - name: Build
+      - name: Build with quasar
         run: quasar build
       
       # Deploy built application to GitHub pages branch
@@ -30,9 +30,9 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
           git checkout --orphan gh-pages
-          git --work-tree dist add --all
-          git --work-tree dist commit -m 'Deploy'
+          git --work-tree dist/spa add --all
+          git --work-tree dist/spa commit -m 'Deploy'
           git push origin HEAD:gh-pages --force
-          rm -r dist
+          quasar clean
           git checkout -f main
           git branch -D gh-pages
