@@ -22,7 +22,7 @@ jobs:
       
       # Build application
       - name: Build
-        run: yarn build
+        run: quasar build
       
       # Deploy built application to GitHub pages branch
       - name: Deploy to GitHub Pages
