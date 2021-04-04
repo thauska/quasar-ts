@@ -9,6 +9,11 @@ A Quasar Framework app with:
 - Vue-Property-Decorator
 - ESLint 
 
+## TODO
+
+- Implementar Testes unitários utilizando Jest
+- Disponibilizar a aplicação online
+
 ## Install the dependencies
 ```bash
 yarn
